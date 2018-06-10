@@ -2,7 +2,7 @@
 ##### To install piWebHooksSignals, get a virgin raspian lite image from raspberry.org
 # tested on raspian stretch
 #  boot it, start the install script with
-#    bash <(curl -s http://mywebsite.com:8080/install.sh)
+#    bash <(curl -s https://raw.githubusercontent.com/stko/piWebHooksSignals/master/install.sh)
 # and spent some hours with your friends or family. When you are back,
 # the installation should be done
 
@@ -60,7 +60,6 @@ sudo apt-get autoremove --purge --assume-yes
 
 wget  https://github.com/stko/piWebHooksSignals/archive/master.zip -O piWebHooksSignals.zip && unzip piWebHooksSignals.zip
 mv piWebHooksSignals-master piWebHooksSignals
-sudo cp -r piWebHooksSignals/www/* /var/www/html
 sudo mkdir /etc/piWebHooksSignals
 sudo cp piWebHooksSignals/scripts/sample_* /etc/piWebHooksSignals/
 sudo rename 's/sample_//' /etc/piWebHooksSignals/sample*
@@ -129,7 +128,8 @@ EOF
 cat << 'EOF' | sudo tee  /etc/systemd/system/piWebHooksMaster.service
 [Unit]
 Description=piWebHooksSignals Main Server
-Wants=local-fs.target
+Wants=network.target
+After=network.target
 Before=fireWebHooks.service
 
 [Service]
@@ -143,7 +143,7 @@ EOF
 
 
 sudo systemctl enable fireWebHooks 
-sudo systemctl enable piWebHooksSignals
+sudo systemctl enable piWebHooksMaster
 
 #echo "Your actual config"
 #sudo nano /etc/piWebHooksSignals/settings.ini
