@@ -1,0 +1,556 @@
+EESchema Schematic File Version 2
+LIBS:piPortable-rescue
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:Relay2
+LIBS:piPortable-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date "15 nov 2012"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L CONN_13X2 P1
+U 1 1 50A55ABA
+P 4200 5150
+F 0 "P1" H 4200 5850 60  0000 C CNN
+F 1 "CONN_13X2" V 4200 5150 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_2x13" H 4200 5150 60  0001 C CNN
+F 3 "" H 4200 5150 60  0001 C CNN
+	1    4200 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3.3V-RESCUE-piPortable #PWR2
+U 1 1 50A55B18
+P 3700 4400
+F 0 "#PWR2" H 3700 4360 30  0001 C CNN
+F 1 "+3.3V" H 3700 4510 30  0000 C CNN
+F 2 "" H 3700 4400 60  0001 C CNN
+F 3 "" H 3700 4400 60  0001 C CNN
+	1    3700 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 4400 3700 4550
+Wire Wire Line
+	3700 4550 3800 4550
+$Comp
+L +5V #PWR3
+U 1 1 50A55B2E
+P 4700 4400
+F 0 "#PWR3" H 4700 4490 20  0001 C CNN
+F 1 "+5V" H 4700 4490 30  0000 C CNN
+F 2 "" H 4700 4400 60  0001 C CNN
+F 3 "" H 4700 4400 60  0001 C CNN
+	1    4700 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4700 4400 4700 4550
+Wire Wire Line
+	4700 4550 4600 4550
+NoConn ~ 4600 4650
+Wire Wire Line
+	3800 4650 3050 4650
+Wire Wire Line
+	3800 4750 3050 4750
+Text Label 3050 4650 0    60   ~ 0
+GPIO0(SDA)
+Text Label 3050 4750 0    60   ~ 0
+GPIO1(SCL)
+Text Label 3050 4850 0    60   ~ 0
+GPIO4
+NoConn ~ 3800 4950
+Text Label 3050 5050 0    60   ~ 0
+GPIO17
+Text Label 3050 5150 0    60   ~ 0
+GPIO27(old21)
+Text Label 3050 5250 0    60   ~ 0
+GPIO22
+NoConn ~ 3800 5350
+Wire Wire Line
+	3800 5450 3050 5450
+Wire Wire Line
+	3800 5550 3050 5550
+Wire Wire Line
+	3800 5650 3050 5650
+Text Label 3050 5450 0    60   ~ 0
+GPIO10(MOSI)
+Text Label 3050 5550 0    60   ~ 0
+GPIO9(MISO)
+Text Label 3050 5650 0    60   ~ 0
+GPIO11(SCLK)
+NoConn ~ 3800 5750
+$Comp
+L GND-RESCUE-piPortable #PWR4
+U 1 1 50A55C3F
+P 4700 5850
+F 0 "#PWR4" H 4700 5850 30  0001 C CNN
+F 1 "GND" H 4700 5780 30  0001 C CNN
+F 2 "" H 4700 5850 60  0001 C CNN
+F 3 "" H 4700 5850 60  0001 C CNN
+	1    4700 5850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4700 5850 4700 4750
+Wire Wire Line
+	4700 4750 4600 4750
+Wire Wire Line
+	4600 4850 5300 4850
+Wire Wire Line
+	4600 4950 5300 4950
+Text Label 5300 4850 2    60   ~ 0
+TXD
+Text Label 5300 4950 2    60   ~ 0
+RXD
+Text Label 5300 5050 2    60   ~ 0
+GPIO18
+NoConn ~ 4600 5150
+Wire Wire Line
+	4600 5250 5300 5250
+Wire Wire Line
+	4600 5350 5300 5350
+Text Label 5300 5250 2    60   ~ 0
+GPIO23
+Text Label 5300 5350 2    60   ~ 0
+GPIO24
+NoConn ~ 4600 5450
+Wire Wire Line
+	4600 5550 5300 5550
+Text Label 5300 5550 2    60   ~ 0
+GPIO25
+Wire Wire Line
+	4600 5650 5300 5650
+Wire Wire Line
+	4600 5750 5300 5750
+Text Label 5300 5650 2    60   ~ 0
+GPIO8(CE0)
+Text Label 5300 5750 2    60   ~ 0
+GPIO7(CE1)
+$Comp
+L BC237 Q1
+U 1 1 5AAD0603
+P 8000 5600
+F 0 "Q1" H 8200 5675 50  0000 L CNN
+F 1 "BC237" H 8200 5600 50  0000 L CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Molded_Narrow" H 8200 5525 50  0001 L CIN
+F 3 "" H 8000 5600 50  0000 L CNN
+	1    8000 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L BC237 Q2
+U 1 1 5AAD0644
+P 8500 5300
+F 0 "Q2" H 8700 5375 50  0000 L CNN
+F 1 "BC237" H 8700 5300 50  0000 L CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Molded_Narrow" H 8700 5225 50  0001 L CIN
+F 3 "" H 8500 5300 50  0000 L CNN
+	1    8500 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L D_Small D8
+U 1 1 5AAD0763
+P 6550 4550
+F 0 "D8" H 6500 4630 50  0000 L CNN
+F 1 "D4148" H 6400 4470 50  0000 L CNN
+F 2 "Diodes_ThroughHole:Diode_DO-35_SOD27_Horizontal_RM10" V 6550 4550 50  0001 C CNN
+F 3 "" V 6550 4550 50  0000 C CNN
+	1    6550 4550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L D_Small D5
+U 1 1 5AAD1766
+P 8800 4100
+F 0 "D5" H 8750 4180 50  0000 L CNN
+F 1 "D4148" H 8650 4020 50  0000 L CNN
+F 2 "Diodes_ThroughHole:Diode_DO-35_SOD27_Horizontal_RM10" V 8800 4100 50  0001 C CNN
+F 3 "" V 8800 4100 50  0000 C CNN
+	1    8800 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R1
+U 1 1 5AAE04E6
+P 7500 5250
+F 0 "R1" V 7580 5250 50  0000 C CNN
+F 1 "100K" V 7500 5250 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 7430 5250 50  0001 C CNN
+F 3 "" H 7500 5250 50  0000 C CNN
+	1    7500 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R2
+U 1 1 5AAE06A0
+P 7500 5800
+F 0 "R2" V 7580 5800 50  0000 C CNN
+F 1 "100K" V 7500 5800 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 7430 5800 50  0001 C CNN
+F 3 "" H 7500 5800 50  0000 C CNN
+	1    7500 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R3
+U 1 1 5AAE0700
+P 8100 4650
+F 0 "R3" V 8180 4650 50  0000 C CNN
+F 1 "10K" V 8100 4650 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 8030 4650 50  0001 C CNN
+F 3 "" H 8100 4650 50  0000 C CNN
+	1    8100 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R4
+U 1 1 5AAE077C
+P 9800 5500
+F 0 "R4" V 9880 5500 50  0000 C CNN
+F 1 "330R" V 9800 5500 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 9730 5500 50  0001 C CNN
+F 3 "" H 9800 5500 50  0000 C CNN
+	1    9800 5500
+	0    1    1    0   
+$EndComp
+$Comp
+L LED D1
+U 1 1 5AAE08BE
+P 9250 5700
+F 0 "D1" H 9250 5800 50  0000 C CNN
+F 1 "Power" H 9250 5600 50  0000 C CNN
+F 2 "LEDs:LED-5MM" H 9250 5700 50  0001 C CNN
+F 3 "" H 9250 5700 50  0000 C CNN
+	1    9250 5700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L USB_A P3
+U 1 1 5AAE0BDA
+P 10600 5700
+F 0 "P3" H 10800 5500 50  0000 C CNN
+F 1 "USB_A" H 10550 5900 50  0000 C CNN
+F 2 "Connect:USB_A" V 10550 5600 50  0001 C CNN
+F 3 "" V 10550 5600 50  0000 C CNN
+	1    10600 5700
+	0    1    1    0   
+$EndComp
+$Comp
+L CP_Small C1
+U 1 1 5AAE0F3E
+P 7100 5750
+F 0 "C1" H 7110 5820 50  0000 L CNN
+F 1 "CP_Small" H 7110 5670 50  0000 L CNN
+F 2 "Capacitors_ThroughHole:C_Radial_D10_L13_P5" H 7100 5750 50  0001 C CNN
+F 3 "" H 7100 5750 50  0000 C CNN
+	1    7100 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED D2
+U 1 1 5AAE12E6
+P 1700 4650
+F 0 "D2" H 1700 4750 50  0000 C CNN
+F 1 "Green" H 1700 4550 50  0000 C CNN
+F 2 "LEDs:LED-5MM" H 1700 4650 50  0001 C CNN
+F 3 "" H 1700 4650 50  0000 C CNN
+	1    1700 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED D3
+U 1 1 5AAE132E
+P 1700 4950
+F 0 "D3" H 1700 5050 50  0000 C CNN
+F 1 "Red" H 1700 4850 50  0000 C CNN
+F 2 "LEDs:LED-5MM" H 1700 4950 50  0001 C CNN
+F 3 "" H 1700 4950 50  0000 C CNN
+	1    1700 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED D4
+U 1 1 5AAE137D
+P 1700 5250
+F 0 "D4" H 1700 5350 50  0000 C CNN
+F 1 "Yellow" H 1700 5150 50  0000 C CNN
+F 2 "LEDs:LED-5MM" H 1700 5250 50  0001 C CNN
+F 3 "" H 1700 5250 50  0000 C CNN
+	1    1700 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R5
+U 1 1 5AAE1512
+P 2250 4650
+F 0 "R5" V 2330 4650 50  0000 C CNN
+F 1 "330R" V 2250 4650 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 2180 4650 50  0001 C CNN
+F 3 "" H 2250 4650 50  0000 C CNN
+	1    2250 4650
+	0    1    1    0   
+$EndComp
+$Comp
+L R R6
+U 1 1 5AAE1575
+P 2250 4950
+F 0 "R6" V 2330 4950 50  0000 C CNN
+F 1 "330R" V 2250 4950 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 2180 4950 50  0001 C CNN
+F 3 "" H 2250 4950 50  0000 C CNN
+	1    2250 4950
+	0    1    1    0   
+$EndComp
+$Comp
+L R R7
+U 1 1 5AAE15D1
+P 2250 5250
+F 0 "R7" V 2330 5250 50  0000 C CNN
+F 1 "330R" V 2250 5250 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 2180 5250 50  0001 C CNN
+F 3 "" H 2250 5250 50  0000 C CNN
+	1    2250 5250
+	0    1    1    0   
+$EndComp
+$Comp
+L GND-RESCUE-piPortable #PWR5
+U 1 1 5AAE207B
+P 10300 6100
+F 0 "#PWR5" H 10300 6100 30  0001 C CNN
+F 1 "GND-RESCUE-piPortable" H 10300 6030 30  0001 C CNN
+F 2 "" H 10300 6100 60  0000 C CNN
+F 3 "" H 10300 6100 60  0000 C CNN
+	1    10300 6100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10300 5800 10300 6100
+Connection ~ 10300 6000
+$Comp
+L D_Small D6
+U 1 1 5AAE27C6
+P 7750 4100
+F 0 "D6" H 7700 4180 50  0000 L CNN
+F 1 "D4148" H 7600 4020 50  0000 L CNN
+F 2 "Diodes_ThroughHole:Diode_DO-35_SOD27_Horizontal_RM10" V 7750 4100 50  0001 C CNN
+F 3 "" V 7750 4100 50  0000 C CNN
+	1    7750 4100
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	7100 5850 7100 6000
+Connection ~ 7100 6000
+Connection ~ 7500 6000
+Connection ~ 8100 6000
+Connection ~ 8600 6000
+Wire Wire Line
+	7100 5600 7800 5600
+Connection ~ 7100 5600
+Wire Wire Line
+	7850 4100 8700 4100
+Wire Wire Line
+	8600 4350 8600 4100
+Connection ~ 8600 4100
+Wire Wire Line
+	8100 4500 8100 4100
+Connection ~ 8100 4100
+Wire Wire Line
+	9100 4350 9100 4100
+Wire Wire Line
+	8900 4100 10150 4100
+Wire Wire Line
+	9000 4950 9000 5000
+Wire Wire Line
+	8100 4800 8100 5400
+Wire Wire Line
+	8300 5300 8100 5300
+Connection ~ 8100 5300
+$Comp
+L D_Small D7
+U 1 1 5AAE3219
+P 7500 4650
+F 0 "D7" H 7450 4730 50  0000 L CNN
+F 1 "D4148" H 7350 4570 50  0000 L CNN
+F 2 "Diodes_ThroughHole:Diode_DO-35_SOD27_Horizontal_RM10" V 7500 4650 50  0001 C CNN
+F 3 "" V 7500 4650 50  0000 C CNN
+	1    7500 4650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8600 5100 8600 4950
+Wire Wire Line
+	9950 5500 10300 5500
+Wire Wire Line
+	9650 5500 9250 5500
+Wire Wire Line
+	9250 6000 9250 5900
+Connection ~ 9250 6000
+Wire Wire Line
+	10150 4100 10150 5500
+Connection ~ 10150 5500
+Connection ~ 9100 4100
+$Comp
+L GND-RESCUE-piPortable #PWR1
+U 1 1 5AAE4223
+P 1250 5700
+F 0 "#PWR1" H 1250 5700 30  0001 C CNN
+F 1 "GND-RESCUE-piPortable" H 1250 5630 30  0001 C CNN
+F 2 "" H 1250 5700 60  0000 C CNN
+F 3 "" H 1250 5700 60  0000 C CNN
+	1    1250 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 4650 1900 4650
+Wire Wire Line
+	2100 4950 1900 4950
+Wire Wire Line
+	2100 5250 1900 5250
+Wire Wire Line
+	1500 4650 1250 4650
+Wire Wire Line
+	1250 4650 1250 5700
+Wire Wire Line
+	1500 4950 1250 4950
+Connection ~ 1250 4950
+Wire Wire Line
+	1500 5250 1250 5250
+Connection ~ 1250 5250
+Wire Wire Line
+	8600 6000 8600 5500
+Wire Wire Line
+	8100 6000 8100 5800
+Wire Wire Line
+	2400 4650 2750 4650
+Wire Wire Line
+	2750 4650 2750 4850
+Wire Wire Line
+	2750 4850 3800 4850
+Wire Wire Line
+	3800 5050 2600 5050
+Wire Wire Line
+	2600 5050 2600 4950
+Wire Wire Line
+	2600 4950 2400 4950
+Wire Wire Line
+	2400 5250 2600 5250
+Wire Wire Line
+	2600 5250 2600 5150
+Wire Wire Line
+	2600 5150 3800 5150
+$Comp
+L CONN_01X04 P2
+U 1 1 5AB63968
+P 5950 5550
+F 0 "P2" H 5950 5800 50  0000 C CNN
+F 1 "CONN_01X04" V 6050 5550 50  0000 C CNN
+F 2 "" H 5950 5550 50  0000 C CNN
+F 3 "" H 5950 5550 50  0000 C CNN
+	1    5950 5550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6150 6000 10300 6000
+Wire Wire Line
+	9000 5000 6800 5000
+Wire Wire Line
+	6800 5000 6800 5600
+Wire Wire Line
+	6800 5600 6150 5600
+Wire Wire Line
+	6150 6000 6150 5700
+Wire Wire Line
+	6150 5600 6150 5500
+Wire Wire Line
+	6150 5400 6150 4100
+Wire Wire Line
+	6150 4100 7650 4100
+Wire Wire Line
+	7500 4550 7500 4100
+Connection ~ 7500 4100
+Wire Wire Line
+	6450 4550 5550 4550
+Wire Wire Line
+	5550 4550 5550 6000
+Wire Wire Line
+	5550 6000 2800 6000
+Wire Wire Line
+	2800 6000 2800 5250
+Wire Wire Line
+	2800 5250 3800 5250
+$Comp
+L AXICOM_FP2_D300x K1
+U 1 1 5AB646B9
+P 9000 4650
+F 0 "K1" H 9650 4800 50  0000 L CNN
+F 1 "AXICOM_FP2_D300x" H 9650 4700 50  0000 L CNN
+F 2 "" H 9650 4600 50  0001 L CNN
+F 3 "" H 8800 4650 50  0001 C CNN
+	1    9000 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R8
+U 1 1 5B16B9C7
+P 7100 5250
+F 0 "R8" V 7180 5250 50  0000 C CNN
+F 1 "4K7" V 7100 5250 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 7030 5250 50  0001 C CNN
+F 3 "" H 7100 5250 50  0000 C CNN
+	1    7100 5250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7500 4750 7500 5100
+Wire Wire Line
+	7500 5400 7500 5650
+Connection ~ 7500 5600
+Wire Wire Line
+	7100 5400 7100 5650
+Wire Wire Line
+	6650 4550 7100 4550
+Wire Wire Line
+	7100 4550 7100 5100
+Wire Wire Line
+	7500 5950 7500 6000
+$EndSCHEMATC
