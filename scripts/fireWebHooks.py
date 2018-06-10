@@ -35,8 +35,6 @@ try:
 except:
 	flushprint("RED")
 	eprint("id {0} not found in config array".format(msgID))
+time.sleep( 5 )
+flushprint("EXIT")
 
-#Applet ID 442155p
-# gustltrigger
-
-#https://maker.ifttt.com/use/bTFLDb_wyylsDDkvWsNVvPVmtT4ROI9zyaMf3QJSioZ

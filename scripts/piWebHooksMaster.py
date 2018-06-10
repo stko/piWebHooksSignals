@@ -59,7 +59,6 @@ def updateLEDStates():
 def evalCmd(cmd):
 	global data
 	global ledStates
-	cmd=cmd.upper().strip()
 	try:
 		for idx, val in enumerate(data["commands"][cmd]):
 			if val==-1:
@@ -87,10 +86,12 @@ for idx, val in enumerate(data["config"]):
   ledStates[idx]["actstate"]=0
 
 evalCmd("INIT")
+cmd=""
 # get the cmd
-while True:
+while cmd!="EXIT":
 	cmd = nbsr.readline(0.5) # 0.1 secs to let the shell cmd the result
 	if cmd:
+		cmd=cmd.upper().strip()
 		print ("--",cmd)
 		evalCmd(cmd)
 	updateLEDStates()

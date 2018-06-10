@@ -1,7 +1,10 @@
 
 ##### To install piWebHooksSignals, get a virgin raspian lite image from raspberry.org
 # tested on raspian stretch
-#  boot it, start the install script with
+#  boot the virgin raspian image, login
+#  do 'export DEBUG=YES' first, if the finished image shall not become read-only. This is good for debugging, but bad for daily use..
+#
+# start the install script with
 #    bash <(curl -s https://raw.githubusercontent.com/stko/piWebHooksSignals/master/install.sh)
 # and spent some hours with your friends or family. When you are back,
 # the installation should be done
@@ -18,6 +21,7 @@ python3-gpiozero \
  python3-requests \
 python-rpi.gpio python3-rpi.gpio 
 
+if [ -z ${DEBUG+x} ]; then
 ## begin unisonfs overlay file system (http://blog.pi3g.com/2014/04/make-raspbian-system-read-only/)
 
 ### Do we need to disable swap?? actual not..
@@ -25,7 +29,6 @@ python-rpi.gpio python3-rpi.gpio
 # dphys-swapfile swapoff
 # dphys-swapfile uninstall
 # update-rc.d dphys-swapfile disable
-
 sudo apt-get  --assume-yes install unionfs-fuse
 
 # Create mount script
@@ -56,7 +59,7 @@ sudo chmod +x /usr/local/bin/mount_unionfs
 # remove packs which do need writable partitions
 sudo apt-get remove --purge --assume-yes cron logrotate triggerhappy dphys-swapfile fake-hwclock samba-common
 sudo apt-get autoremove --purge --assume-yes
-
+fi
 
 wget  https://github.com/stko/piWebHooksSignals/archive/master.zip -O piWebHooksSignals.zip && unzip piWebHooksSignals.zip
 mv piWebHooksSignals-master piWebHooksSignals
@@ -94,17 +97,27 @@ tmpfs	/tmp	tmpfs	nodev,nosuid	0	0
 #/dev/sda1       /media/usb0     vfat    ro,defaults,nofail,x-systemd.device-timeout=1   0       0
 
 
+MOUNT
+
+if [ -z ${DEBUG+x} ]; then
+# add the unison directories to the mountlist
+cat << 'MOUNT' | sudo tee --append /etc/fstab
 mount_unionfs   /etc            fuse    defaults          0       0
 mount_unionfs   /var            fuse    defaults          0       0
 
-
 MOUNT
+
+
 
 #add boot options
 echo -n " fastboot noswap" | sudo tee --append /boot/cmdline
 
+fi
+
+
+
 # set the magic power off Pin at poweroff
-echo  " dtoverlay=gpio-poweroff,gpiopin=22" | sudo tee --append /boot/config.txt
+echo  "dtoverlay=gpio-poweroff,gpiopin=22" | sudo tee --append /boot/config.txt
 
 # setting up the systemd services
 # very helpful source : http://patrakov.blogspot.de/2011/01/writing-systemd-service-files.html
@@ -150,12 +163,13 @@ sudo systemctl enable piWebHooksMaster
 
 
 
-#Prepare unisonfs  directories
-sudo cp -al /etc /etc_org
-sudo mv /var /var_org
-sudo mkdir /etc_rw
-sudo mkdir /var /var_rw
-
+if [ -z ${DEBUG+x} ]; then
+	#Prepare unisonfs  directories
+	sudo cp -al /etc /etc_org
+	sudo mv /var /var_org
+	sudo mkdir /etc_rw
+	sudo mkdir /var /var_rw
+fi
 
 #PS3='Please take your choice: '
 #options=("show config" "edit config" "Quit")
