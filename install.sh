@@ -14,6 +14,7 @@ cd
 
 sudo apt-get update --assume-yes
 sudo apt-get install --assume-yes \
+ppp wvdial \
 joe \
 python3-pip \
 usbmount \
@@ -115,6 +116,39 @@ echo -n " fastboot noswap" | sudo tee --append /boot/cmdline
 fi
 
 
+# create the GSM-stick settings
+# taken from https://raspberry.tips/raspberrypi-tutorials/usb-surfstick-am-raspberry-pi-verwenden-mobiles-internet
+
+# do we need eventually 'sudo wvdialconf /etc/wvdial.conf' first?
+
+cat << 'WVDIAL' | sudo tee --append /etc/wvdial.conf
+
+[Dialer gsmstick]
+Modem = /dev/ttyUSB0
+Auto DNS = on
+Init3 = AT+CGDCONT=1,"IP","webmobil1"
+Stupid mode = on
+Phone = *99#
+ISDN = 0
+Auto Reconnect = on
+Baud = 460800
+Username="blank"
+Password="blank"
+WVDIAL
+
+cat << 'WVDIAL' | sudo tee --append /etc/ppp/peers/wvdial
+defaultroute
+replacedefaultroute
+WVDIAL
+
+cat << 'WVDIAL' | sudo tee --append /etc/network/interfaces
+auto ppp0
+iface ppp0 inet wvdial
+provider gsmstick
+WVDIAL
+
+
+
 
 # set the magic power off Pin at poweroff
 echo  "dtoverlay=gpio-poweroff,gpiopin=22" | sudo tee --append /boot/config.txt
@@ -147,11 +181,10 @@ Before=fireWebHooks.service
 
 [Service]
 ExecStart=/home/pi/piWebHooksSignals/scripts/piWebHooksMaster.sh 
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=default.target
-
 EOF
 
 

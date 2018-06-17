@@ -13,7 +13,7 @@ def flushprint(*args, **kwargs):
 
 with open(sys.argv[1]) as f:
 	data = json.load(f)
-msgID=8 # read GPIOs here later to select different msgs.
+msgID=0 # read GPIOs here later to select different msgs.
 flushprint("ON")
 time.sleep( 3 )
 try:
