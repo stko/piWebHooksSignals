@@ -22,45 +22,13 @@ python3-gpiozero \
  python3-requests \
 python-rpi.gpio python3-rpi.gpio 
 
-if [ -z ${DEBUG+x} ] && false ; then
-## begin unisonfs overlay file system (http://blog.pi3g.com/2014/04/make-raspbian-system-read-only/)
 
-### Do we need to disable swap?? actual not..
-
-# dphys-swapfile swapoff
-# dphys-swapfile uninstall
-# update-rc.d dphys-swapfile disable
-sudo apt-get  --assume-yes install unionfs-fuse
-
-# Create mount script
-
-cat << 'EOF' | sudo tee /usr/local/bin/mount_unionfs
-#!/bin/sh
-DIR=$1
-ROOT_MOUNT=$(awk '$2=="/" {print substr($4,1,2)}' < /etc/fstab)
-if [ $ROOT_MOUNT = "rw" ]
-then
-	/bin/mount --bind ${DIR}_org ${DIR}
-else
-	/bin/mount -t tmpfs ramdisk ${DIR}_rw
-	/usr/bin/unionfs-fuse -o cow,allow_other,suid,dev,nonempty ${DIR}_rw=RW:${DIR}_org=RO ${DIR}
-fi
-EOF
-
-# make it executable:
-
-sudo chmod +x /usr/local/bin/mount_unionfs
- ## see the directory renaming at the end of this installation script
-
-## end unisonfs overlay file system
-fi
 
 # Read-Only Image instructions thankfully copied from https://kofler.info/raspbian-lite-fuer-den-read-only-betrieb/
 
 # remove packs which do need writable partitions
 sudo apt-get remove --purge --assume-yes cron logrotate triggerhappy dphys-swapfile fake-hwclock samba-common
 sudo apt-get autoremove --purge --assume-yes
-#fi
 
 wget  https://github.com/stko/piWebHooksSignals/archive/master.zip -O piWebHooksSignals.zip && unzip piWebHooksSignals.zip
 mv piWebHooksSignals-master piWebHooksSignals
@@ -92,30 +60,14 @@ tmpfs	/var/log	tmpfs	nodev,nosuid	0	0
 tmpfs	/var/tmp	tmpfs	nodev,nosuid	0	0
 tmpfs	/tmp	tmpfs	nodev,nosuid	0	0
 #/dev/sda1       /media/usb0     vfat    ro,defaults,nofail,x-systemd.device-timeout=1   0       0
-
-
 MOUNT
-
-if [ -z ${DEBUG+x} ] && false ; then
-# add the unison directories to the mountlist
-cat << 'MOUNT' | sudo tee --append /etc/fstab
-mount_unionfs   /etc            fuse    defaults          0       0
-mount_unionfs   /var            fuse    defaults          0       0
-
-MOUNT
-
-fi 
 
 #add boot options
 echo -n " fastboot noswap" | sudo tee --append /boot/cmdline
 
-#fi
-
 
 # create the GSM-stick settings
 # taken from https://raspberry.tips/raspberrypi-tutorials/usb-surfstick-am-raspberry-pi-verwenden-mobiles-internet
-
-# do we need eventually 'sudo wvdialconf /etc/wvdial.conf' first?
 
 cat << 'WVDIAL' | sudo tee --append /etc/wvdial.conf
 
@@ -189,16 +141,6 @@ sudo systemctl enable piWebHooksMaster
 
 #echo "Your actual config"
 #sudo nano /etc/piWebHooksSignals/settings.ini
-
-
-#### disable unison settings
-#  if [ -z ${DEBUG+x} ]; then
-#  	#Prepare unisonfs  directories
-#  	sudo cp -al /etc /etc_org
-#  	sudo mv /var /var_org
-#  	sudo mkdir /etc_rw
-#  	sudo mkdir /var /var_rw
-#  fi
 
 #PS3='Please take your choice: '
 #options=("show config" "edit config" "Quit")
