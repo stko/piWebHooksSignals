@@ -22,7 +22,7 @@ python3-gpiozero \
  python3-requests \
 python-rpi.gpio python3-rpi.gpio 
 
-if [ -z ${DEBUG+x} ]; then
+if [ -z ${DEBUG+x} ] && false ; then
 ## begin unisonfs overlay file system (http://blog.pi3g.com/2014/04/make-raspbian-system-read-only/)
 
 ### Do we need to disable swap?? actual not..
@@ -53,14 +53,14 @@ sudo chmod +x /usr/local/bin/mount_unionfs
  ## see the directory renaming at the end of this installation script
 
 ## end unisonfs overlay file system
-
+fi
 
 # Read-Only Image instructions thankfully copied from https://kofler.info/raspbian-lite-fuer-den-read-only-betrieb/
 
 # remove packs which do need writable partitions
 sudo apt-get remove --purge --assume-yes cron logrotate triggerhappy dphys-swapfile fake-hwclock samba-common
 sudo apt-get autoremove --purge --assume-yes
-fi
+#fi
 
 wget  https://github.com/stko/piWebHooksSignals/archive/master.zip -O piWebHooksSignals.zip && unzip piWebHooksSignals.zip
 mv piWebHooksSignals-master piWebHooksSignals
@@ -71,19 +71,15 @@ sudo rename 's/sample_//' /etc/piWebHooksSignals/sample*
 chmod a+x /home/pi/piWebHooksSignals/scripts/*.sh
 
 
-# automatically connect to a  hotspot, if around
-wpa_passphrase "SKWLANAP2" "stkoWLAN01ABC" | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf > /dev/null
-
-
 # start to make the system readonly
-#sudo rm -rf /var/lib/dhcp/ /var/spool /var/lock
-#sudo ln -s /tmp /var/lib/dhcp
-#sudo ln -s /tmp /var/spool
-#sudo ln -s /tmp /var/lock
-#if [ -f /etc/resolv.conf ]; then
-#	sudo mv /etc/resolv.conf /tmp/resolv.conf
-#fi
-#sudo ln -s /tmp/resolv.conf /etc/resolv.conf
+sudo rm -rf /var/lib/dhcp/ /var/spool /var/lock
+sudo ln -s /tmp /var/lib/dhcp
+sudo ln -s /tmp /var/spool
+sudo ln -s /tmp /var/lock
+if [ -f /etc/resolv.conf ]; then
+	sudo mv /etc/resolv.conf /tmp/resolv.conf
+fi
+sudo ln -s /tmp/resolv.conf /etc/resolv.conf
 
 # add the temporary directories to the mountlist
 cat << 'MOUNT' | sudo tee /etc/fstab
@@ -92,15 +88,15 @@ proc            /proc           proc    defaults          0       0
 /dev/mmcblk0p2  /               ext4    ro,defaults,noatime  0       1
 # a swapfile is not a swap partition, no line here
 #   use  dphys-swapfile swap[on|off]  for that
-##tmpfs	/var/log	tmpfs	nodev,nosuid	0	0
-##tmpfs	/var/tmp	tmpfs	nodev,nosuid	0	0
+tmpfs	/var/log	tmpfs	nodev,nosuid	0	0
+tmpfs	/var/tmp	tmpfs	nodev,nosuid	0	0
 tmpfs	/tmp	tmpfs	nodev,nosuid	0	0
 #/dev/sda1       /media/usb0     vfat    ro,defaults,nofail,x-systemd.device-timeout=1   0       0
 
 
 MOUNT
 
-if [ -z ${DEBUG+x} ]; then
+if [ -z ${DEBUG+x} ] && false ; then
 # add the unison directories to the mountlist
 cat << 'MOUNT' | sudo tee --append /etc/fstab
 mount_unionfs   /etc            fuse    defaults          0       0
@@ -108,12 +104,12 @@ mount_unionfs   /var            fuse    defaults          0       0
 
 MOUNT
 
-
+fi 
 
 #add boot options
 echo -n " fastboot noswap" | sudo tee --append /boot/cmdline
 
-fi
+#fi
 
 
 # create the GSM-stick settings
@@ -165,7 +161,6 @@ After=network.target network-online.target
 
 [Service]
 ExecStart=/home/pi/piWebHooksSignals/scripts/fireWebHooks.sh
-Restart=on-failure
 
 [Install]
 WantedBy=default.target
@@ -185,6 +180,7 @@ Restart=on-failure
 
 [Install]
 WantedBy=default.target
+
 EOF
 
 
@@ -195,14 +191,14 @@ sudo systemctl enable piWebHooksMaster
 #sudo nano /etc/piWebHooksSignals/settings.ini
 
 
-
-if [ -z ${DEBUG+x} ]; then
-	#Prepare unisonfs  directories
-	sudo cp -al /etc /etc_org
-	sudo mv /var /var_org
-	sudo mkdir /etc_rw
-	sudo mkdir /var /var_rw
-fi
+#### disable unison settings
+#  if [ -z ${DEBUG+x} ]; then
+#  	#Prepare unisonfs  directories
+#  	sudo cp -al /etc /etc_org
+#  	sudo mv /var /var_org
+#  	sudo mkdir /etc_rw
+#  	sudo mkdir /var /var_rw
+#  fi
 
 #PS3='Please take your choice: '
 #options=("show config" "edit config" "Quit")
